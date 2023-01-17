@@ -14,6 +14,8 @@ public class CustomExceptionHandler {
 	public ResponseEntity<String> handleStudentNotFound(StudentNotFoundException snfe){
 		
 		return new ResponseEntity<String>(snfe.getMessage(),HttpStatus.NOT_FOUND);
+		
+		
 	}
 
 }
