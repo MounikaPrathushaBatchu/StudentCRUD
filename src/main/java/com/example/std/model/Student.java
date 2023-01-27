@@ -1,71 +1,108 @@
 package com.example.std.model;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import jakarta.persistence.UniqueConstraint;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "student",uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Student {
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer stdId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String name;
+	private String email_id;
 	
-	private String stdName;
-	private String stdCourse;
-	private Double stdFee;
+	private String Password;
+	@GeneratedValue
+	private boolean active;
+	@GeneratedValue
+	private boolean delete_status;
 	
-	public Integer getStdId() {
-		return stdId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "department_id")
+	private Department department;
+	
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinTable(
+				name = "Student_Courses",
+				joinColumns = @JoinColumn(name = "student_id",referencedColumnName = "id"),
+				inverseJoinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id"))
+	private List<Course> courses = new ArrayList<>();
+	
+	public void addCourse(Course course) {
+		courses.add(course);
 	}
-	public void setStdId(Integer stdId) {
-		this.stdId = stdId;
+	public void removeCourse(Course course) {
+		courses.remove(course);
 	}
-	public String getStdName() {
-		return stdName;
+
+	public int getId() {
+		return id;
 	}
-	public void setStdName(String stdName) {
-		this.stdName = stdName;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getStdCourse() {
-		return stdCourse;
+	public String getName() {
+		return name;
 	}
-	public void setStdCourse(String stdCourse) {
-		this.stdCourse = stdCourse;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public Double getStdFee() {
-		return stdFee;
+	public String getEmail_id() {
+		return email_id;
 	}
-	public void setStdFee(Double stdFee) {
-		this.stdFee = stdFee;
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
 	}
-	@Override
-	public String toString() {
-		return "Student [stdId=" + stdId + ", stdName=" + stdName + ", stdCourse=" + stdCourse + ", stdFee=" + stdFee
-				+ "]";
+	public String getPassword() {
+		return Password;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(stdCourse, stdFee, stdId, stdName);
+	public void setPassword(String password) {
+		Password = password;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Student other = (Student) obj;
-		return Objects.equals(stdCourse, other.stdCourse) && Objects.equals(stdFee, other.stdFee)
-				&& Objects.equals(stdId, other.stdId) && Objects.equals(stdName, other.stdName);
+	public boolean isActive() {
+		return active;
 	}
-	public Student() {
-		super();
+	public void setActive(boolean active) {
+		this.active = active;
 	}
+	public boolean isDelete_status() {
+		return delete_status;
+	}
+	public void setDelete_status(boolean delete_status) {
+		this.delete_status = delete_status;
+	}
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+	public List<Course> getCourse() {
+		return courses;
+	}
+	public void setCourse(List<Course> course) {
+		this.courses = course;
+	}
+	
 }

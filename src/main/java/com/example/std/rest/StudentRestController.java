@@ -2,6 +2,7 @@ package com.example.std.rest;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,24 +30,30 @@ public class StudentRestController {
 		Integer id = service.saveStudent(student);
 		return new ResponseEntity<String>("Student '"+id+"' saved",HttpStatus.OK);
 	}
-	@GetMapping("/all")
+	@GetMapping("/get")
 	public ResponseEntity<List<Student>> getAllStudents(){
 		List<Student> list = service.getAllStudents();
 		return new ResponseEntity<List<Student>>(list, HttpStatus.OK);
 	}
-	@GetMapping("/one/{id}")
+	@GetMapping("/get/page{number}")
+	public ResponseEntity<List<Student>> getAllStudentsinPage(@PathVariable int number){
+		List<Student> list = service.getAllStudentsinPage(number);
+		return new ResponseEntity<List<Student>>(list,HttpStatus.OK);
+	}
+	@GetMapping("/get/{id}")
 	public ResponseEntity<Student> getOneStudent(@PathVariable Integer id){
 		Student student = service.getOneStudent(id);
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}
+	@GetMapping("/get/{name}")
+	public ResponseEntity<Student> getOneStudent(@PathVariable String name){
+		Student student = service.getOneStudent(name);
+		return new ResponseEntity<Student>(student,HttpStatus.OK);
+	}
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> updateStudent(@PathVariable Integer id,@RequestBody Student student){
 		Student studentdb = service.getOneStudent(id);
-		
-		studentdb.setStdName(student.getStdName());
-		studentdb.setStdCourse(student.getStdCourse());
-		studentdb.setStdFee(student.getStdFee());
-		
+		studentdb.setName(student.getName());
 		service.saveStudent(studentdb);
 		return new ResponseEntity<String>("Student '"+id+"' updated",HttpStatus.OK);
 	}
@@ -55,4 +62,12 @@ public class StudentRestController {
 		service.deleteStudent(id);
 		return new ResponseEntity<String>("Student '"+id+"' deleted",HttpStatus.OK);
 	}
+//	@GetMapping("/active")
+//	public ResponseEntity<List<Student>> getAllActiveStudents(){
+//		boolean active;
+//		if(active != false) {
+//			List<Student> list = service.getAllStudents();
+//			return new ResponseEntity<List<Student>>(list, HttpStatus.OK);
+//		}
+//	}
 }

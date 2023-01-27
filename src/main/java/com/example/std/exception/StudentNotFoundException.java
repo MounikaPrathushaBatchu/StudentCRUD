@@ -1,6 +1,5 @@
 package com.example.std.exception;
 
-@SuppressWarnings("serial")
 public class StudentNotFoundException extends RuntimeException{
 	
 	public StudentNotFoundException() {
@@ -9,5 +8,4 @@ public class StudentNotFoundException extends RuntimeException{
 	public StudentNotFoundException(String msg) {
 		super(msg);
 	}
-
 }

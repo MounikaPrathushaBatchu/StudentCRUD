@@ -1,6 +1,7 @@
 package com.example.std.service.impl;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,18 @@ public class StudentServiceImpl implements StudentService {
 	private StudentRepository repo;
 
 	@Override
-	public Integer saveStudent(Student student) {
-		Integer id= repo.save(student).getStdId();
+	public int saveStudent(Student student) {
+		int id= repo.save(student).getId();
 		return id;
 	}
 	
 	@Override
 	public List<Student> getAllStudents() {
+		List<Student> list =repo.findAll();
+		return list;
+	}
+	@Override
+	public List<Student> getAllStudentsinPage(int number) {
 		List<Student> list =repo.findAll();
 		return list;
 	}
@@ -50,5 +56,12 @@ public class StudentServiceImpl implements StudentService {
 	public void deleteStudent(Integer id) {
 		Student student = getOneStudent(id);
 		repo.delete(student);
+	}
+
+	@Override
+	public Student getOneStudent(String name) {
+		Optional<Student> opt = repo.findByName(name);
+		Student student = opt.orElseThrow(()-> new StudentNotFoundException("Student Not Found"));
+		return student;
 	}
 }
