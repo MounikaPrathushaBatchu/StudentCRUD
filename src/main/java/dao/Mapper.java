@@ -41,10 +41,10 @@ public class Mapper {
 		studentResponseDao.setId(student.getId());
 		studentResponseDao.setName(student.getName());
 		List<String> names = new ArrayList<>();
-		List<Course> courses = student.getCourse();
-		for(Course course:courses) {
-			names.add(course.getName());
-		}
+//		List<Course> courses = student.getCourse();
+//		for(Course course:courses) {
+//			names.add(course.getName());
+//		}
 		studentResponseDao.setCourses(names);
 		return studentResponseDao;
 	}

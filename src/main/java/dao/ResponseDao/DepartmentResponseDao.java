@@ -4,16 +4,16 @@ import java.util.List;
 
 public class DepartmentResponseDao {
 	
-	private int id;
+	private Long id;
 	private String name;
 	private boolean active;
 	private boolean delete_status;
 	private List<Integer> student_id;
 	private List<String> courses;
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {

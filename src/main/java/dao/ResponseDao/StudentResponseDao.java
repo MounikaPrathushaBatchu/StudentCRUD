@@ -4,7 +4,7 @@ import java.util.List;
 
 public class StudentResponseDao {
 	
-	private int id;
+	private Long id;
 	private String name;
 	private String email_id;
 	private String Password;
@@ -12,10 +12,10 @@ public class StudentResponseDao {
 	private boolean delete_status;
 	private int department_id;
 	private List<String> courses;
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -60,5 +60,4 @@ public class StudentResponseDao {
 	public void setCourses(List<String> courses) {
 		this.courses = courses;
 	}
-
 }

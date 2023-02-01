@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +26,12 @@ public class DepartmentRestController {
 	
 	@Autowired
 	private DepartmentService service;
+//	@Autowired
+//	private Department department;
 	
 	@PostMapping("/save")
 	public ResponseEntity<String> saveDepartment(@RequestBody Department department){
-		Integer id = service.savedepartment(department);
+		Long id = service.savedepartment(department);
 		return new ResponseEntity<String>("department '"+id+"' saved",HttpStatus.OK);
 	}
 	@GetMapping("/get")
@@ -42,20 +45,30 @@ public class DepartmentRestController {
 		return new ResponseEntity<List<Department>>(list,HttpStatus.OK);
 	}
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Department> getOneDepartment(@PathVariable Integer id){
+	public ResponseEntity<Department> getOneDepartment(@PathVariable Long id){
 		Department department = service.getOneDepartment(id);
 		return new ResponseEntity<Department>(department, HttpStatus.OK);
 	}
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> updateDepartment(@PathVariable Integer id,@RequestBody Department department){
+	public ResponseEntity<String> updateDepartment(@PathVariable Long id,@RequestBody Department department){
 		Department departmentdb = service.getOneDepartment(id);
 		departmentdb.setName(department.getName());
 		service.savedepartment(departmentdb);
 		return new ResponseEntity<String>("Department '"+id+"' updated",HttpStatus.OK);
 	}
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteDepartment(@PathVariable Integer id){
+	public ResponseEntity<String> deleteDepartment(@PathVariable Long id){
 		service.deleteDepartment(id);
 		return new ResponseEntity<String>("Department '"+id+"' deleted",HttpStatus.OK);
 	}
+//	@GetMapping("/active")
+//	public ResponseEntity<List<Department>> getAllActiveDepartments(){
+//		if(department.active != false) {
+//			List<Department> list = service.getAllDepartments();
+//		return new ResponseEntity<List<Department>>(list, HttpStatus.OK);
+//		}
+//		else {
+//			return null;
+//		}
+//	}
 }

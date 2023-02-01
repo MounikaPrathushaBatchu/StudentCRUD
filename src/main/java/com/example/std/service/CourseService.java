@@ -6,13 +6,13 @@ import com.example.std.model.Course;
 
 public interface CourseService {
 	
-	int saveCourse(Course course);
+	Long saveCourse(Course course);
 	
 	List<Course> getAllCourses();
 	
-	Course getOneCourse(Integer id);
+	Course getOneCourse(Long id);
 	
-	void deleteCourse(Integer id);
+	void deleteCourse(Long id);
 
 	List<Course> getAllCoursesinPage(int number);
 

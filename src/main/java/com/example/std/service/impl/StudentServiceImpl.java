@@ -15,12 +15,12 @@ import com.example.std.service.StudentService;
 @Service
 public class StudentServiceImpl implements StudentService {
 	
-	@Autowired
+	@Autowired(required=true)
 	private StudentRepository repo;
 
 	@Override
-	public int saveStudent(Student student) {
-		int id= repo.save(student).getId();
+	public Long saveStudent(Student student) {
+		Long id= repo.save(student).getId();
 		return id;
 	}
 	
@@ -36,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Student getOneStudent(Integer id) {
+	public Student getOneStudent(Long id) {
 		Optional<Student> opt=repo.findById(id);
 		
 		Student student = opt.orElseThrow(()-> new StudentNotFoundException("Student Not Found"));
@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void deleteStudent(Integer id) {
+	public void deleteStudent(Long id) {
 		Student student = getOneStudent(id);
 		repo.delete(student);
 	}

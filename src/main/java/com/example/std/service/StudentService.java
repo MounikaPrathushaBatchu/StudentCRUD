@@ -6,15 +6,15 @@ import com.example.std.model.Student;
 
 public interface StudentService {
 	
-	int saveStudent(Student student);
+	Long saveStudent(Student student);
 	
 	List<Student> getAllStudents();
 	
-	Student getOneStudent(Integer id);
+	Student getOneStudent(Long id);
 	
 	Student getOneStudent(String name);
 	
-	void deleteStudent(Integer id);
+	void deleteStudent(Long id);
 
 	List<Student> getAllStudentsinPage(int number);
 

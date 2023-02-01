@@ -1,9 +1,10 @@
 package com.example.std.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.example.std.model.Course;
-
-public interface CourseRepository extends JpaRepository<Course, Integer> {
+@Repository
+public interface CourseRepository extends JpaRepository<Course, Long> {
 
 }

@@ -26,5 +26,4 @@ public class CourseRequestDao {
 	public void setStudent_id(int student_id) {
 		this.student_id = student_id;
 	}
-
 }

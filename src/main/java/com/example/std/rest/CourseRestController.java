@@ -17,15 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.std.model.Course;
 import com.example.std.service.CourseService;
 
+
 @RestController
 @RequestMapping("/courses")
 public class CourseRestController {
-	@Autowired
+	@Autowired(required = true)
 	private CourseService service;
+//	@Autowired
+//	private Course course;
 	
 	@PostMapping("/save")
 	public ResponseEntity<String> saveCourse(@RequestBody Course course){
-		Integer id = service.saveCourse(course);
+		Long id = service.saveCourse(course);
 		return new ResponseEntity<String>("Course '"+id+"' saved",HttpStatus.OK);
 	}
 	@GetMapping("/get")
@@ -39,22 +42,31 @@ public class CourseRestController {
 		return new ResponseEntity<List<Course>>(list,HttpStatus.OK);
 	}
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Course> getOneDepartment(@PathVariable Integer id){
+	public ResponseEntity<Course> getOneDepartment(@PathVariable Long id){
 		Course course = service.getOneCourse(id);
 		return new ResponseEntity<Course>(course, HttpStatus.OK);
 	}
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> updateDepartment(@PathVariable Integer id,@RequestBody Course course){
+	public ResponseEntity<String> updateDepartment(@PathVariable Long id,@RequestBody Course course){
 		Course coursedb = service.getOneCourse(id);
 		coursedb.setName(course.getName());
 		service.saveCourse(coursedb);
 		return new ResponseEntity<String>("Department '"+id+"' updated",HttpStatus.OK);
 	}
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteDepartment(@PathVariable Integer id){
+	public ResponseEntity<String> deleteDepartment(@PathVariable Long id){
 		service.deleteCourse(id);
 		return new ResponseEntity<String>("Course '"+id+"' deleted",HttpStatus.OK);
 	}
-
+//	@GetMapping("/active")
+//	public ResponseEntity<List<Course>> getAllActiveCourses(){
+//		if(course.active != false) {
+//			List<Course> list = service.getAllCourses();
+//		return new ResponseEntity<List<Course>>(list, HttpStatus.OK);
+//		}
+//		else {
+//			return null;
+//		}
+//	}
 
 }
