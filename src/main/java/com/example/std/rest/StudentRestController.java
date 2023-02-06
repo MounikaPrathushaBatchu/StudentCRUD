@@ -2,7 +2,6 @@ package com.example.std.rest;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,12 +41,12 @@ public class StudentRestController {
 		List<Student> list = service.getAllStudentsinPage(number);
 		return new ResponseEntity<List<Student>>(list,HttpStatus.OK);
 	}
-	@GetMapping("/get/{id}")
+	@GetMapping("/getbyid/{id}")
 	public ResponseEntity<Student> getOneStudent(@PathVariable Long id){
 		Student student = service.getOneStudent(id);
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}
-	@GetMapping("/get/{name}")
+	@GetMapping("/getbyname/{name}")
 	public ResponseEntity<Student> getOneStudent(@PathVariable String name){
 		Student student = service.getOneStudent(name);
 		return new ResponseEntity<Student>(student,HttpStatus.OK);

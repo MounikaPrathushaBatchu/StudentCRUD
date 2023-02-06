@@ -2,6 +2,7 @@ package com.example.std.model;
 
 import com.example.std.config.AesEncryptor;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 
 //import java.util.List;
@@ -19,23 +20,26 @@ import jakarta.persistence.Table;
 //import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.UniqueConstraint;
+//import jakarta.persistence.UniqueConstraint;
 
 @Data
 @Entity
 @NoArgsConstructor
 //@AllArgsConstructor
-@Table(name = "student",uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Table(name = "student")
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(unique = true)
 	private String name;
+	@Column(unique = true)
 	private String email_id;
 	@Convert(converter = AesEncryptor.class)
+	@GeneratedValue
 	private String Password;
 	@GeneratedValue
-	public boolean active;
+	public boolean active = true;
 	@GeneratedValue
 	private boolean delete_status = false;
 	
@@ -50,13 +54,6 @@ public class Student {
 				inverseJoinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id"))
 	private Course courses;
 	
-//	public void addCourse(Course course) {
-//		courses.add(course);
-//	}
-//	public void removeCourse(Course course) {
-//		courses.remove(course);
-//	}
-
 	public Long getId() {
 		return id;
 	}

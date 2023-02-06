@@ -51,7 +51,7 @@ public class CourseRestController {
 		Course coursedb = service.getOneCourse(id);
 		coursedb.setName(course.getName());
 		service.saveCourse(coursedb);
-		return new ResponseEntity<String>("Department '"+id+"' updated",HttpStatus.OK);
+		return new ResponseEntity<String>("Course '"+id+"' updated",HttpStatus.OK);
 	}
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteDepartment(@PathVariable Long id){

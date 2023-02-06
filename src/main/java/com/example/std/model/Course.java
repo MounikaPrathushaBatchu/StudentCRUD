@@ -3,6 +3,7 @@ import java.util.List;
 //import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-//import jakarta.persistence.Table;
+import jakarta.persistence.Table;
 //import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,19 +20,26 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 //@AllArgsConstructor
-//@Table(name = "course")
+@Table(name = "course")
 public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(unique = true)
 	private String name;
 	@GeneratedValue
-	public boolean active;
+	public boolean active = true;
 	@GeneratedValue
 	private boolean delete_status;
 	
 	@OneToMany(mappedBy = "courses",cascade = CascadeType.ALL)
-	private List<Student> student;
+	private List<Student> students;
+	public void addStudent(Student student) {
+		students.add(student);
+	}
+	public void removeStudent(Student student) {
+		students.remove(student);
+	}
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_id")
 	private Department department;
@@ -60,12 +68,6 @@ public class Course {
 	public void setDelete_status(boolean delete_status) {
 		this.delete_status = delete_status;
 	}
-//	public Student getStudent() {
-//		return student;
-//	}
-//	public void setStudent(Student student) {
-//		this.student = student;
-//	}
 	public Department getDepartment() {
 		return department;
 	}

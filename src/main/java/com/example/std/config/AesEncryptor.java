@@ -4,9 +4,7 @@ import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.util.Base64;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.context.annotation.Configuration;
@@ -46,27 +44,15 @@ public class AesEncryptor implements AttributeConverter<Object, String> {
 	public String convertToDatabaseColumn(Object attribute) {
 		if(attribute == null)
 			return null;
-		try {
+		try{
 			initCipher(Cipher.ENCRYPT_MODE);
-		} catch (GeneralSecurityException e) {
-			e.addSuppressed(e);
-			e.printStackTrace();
-		}
-		byte[] bytes = SerializationUtils.serialize(attribute);
-		try {
+			byte[] bytes = SerializationUtils.serialize(attribute);
 			return Base64.getEncoder().encodeToString(getCipher().doFinal(bytes));
-		} catch (IllegalBlockSizeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (BadPaddingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		return encryptionKey;
-		
+		catch(Exception e) {
+			e.addSuppressed(e);
+		}
+		return null;
 	}
 	@SneakyThrows
 	@Override
@@ -74,24 +60,13 @@ public class AesEncryptor implements AttributeConverter<Object, String> {
 		if(dbData == null)
 			return null;
 		try {
-			initCipher(Cipher.DECRYPT_MODE);
-		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		byte[] bytes = null;
-		try {
-			bytes = getCipher().doFinal(Base64.getDecoder().decode(dbData));
-		} catch (IllegalBlockSizeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (BadPaddingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		initCipher(Cipher.DECRYPT_MODE);
+		byte[] bytes = getCipher().doFinal(Base64.getDecoder().decode(dbData));
 		return SerializationUtils.deserialize(bytes);
+		}
+		catch(Exception e) {
+			e.addSuppressed(e);
+		}
+		return null;
 	}
 }
