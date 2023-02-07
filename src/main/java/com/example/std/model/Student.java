@@ -1,26 +1,29 @@
 package com.example.std.model;
 
-import com.example.std.config.AesEncryptor;
 
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 
-//import java.util.List;
+import java.util.List;
 
-//import jakarta.persistence.CascadeType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.example.std.config.AesEncryptor;
+
 import jakarta.persistence.Entity;
-//import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.Table;
 //import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import jakarta.persistence.UniqueConstraint;
 
 @Data
 @Entity
@@ -35,9 +38,9 @@ public class Student {
 	private String name;
 	@Column(unique = true)
 	private String email_id;
+	//@GeneratedValue
 	@Convert(converter = AesEncryptor.class)
-	@GeneratedValue
-	private String Password;
+	private String password;
 	@GeneratedValue
 	public boolean active = true;
 	@GeneratedValue
@@ -47,12 +50,12 @@ public class Student {
 	@JoinColumn(name = "department_id")
 	private Department department;
 	
-	@ManyToOne
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 				name = "Student_Courses",
 				joinColumns = @JoinColumn(name = "student_id",referencedColumnName = "id"),
 				inverseJoinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id"))
-	private Course courses;
+	private List<Course> courses;
 	
 	public Long getId() {
 		return id;
@@ -73,10 +76,16 @@ public class Student {
 		this.email_id = email_id;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
+	}
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	public boolean isDelete_status() {
 		return delete_status;
@@ -90,11 +99,25 @@ public class Student {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-//	public List<Course> getCourse() {
-//		return courses;
-//	}
-//	public void setCourse(List<Course> course) {
-//		this.courses = course;
-//	}
+	public List<Course> getCourses() {
+		return courses;
+	}
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+	public Student(Long id, String name, String email_id, String password, boolean active, boolean delete_status,
+			Department department, List<Course> courses) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email_id = email_id;
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		this.password = passwordEncoder.encode(password);
+		this.active = active;
+		this.delete_status = delete_status;
+		this.department = department;
+		this.courses = courses;
+	}
+	
 	
 }

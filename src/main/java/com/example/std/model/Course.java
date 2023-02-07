@@ -1,6 +1,5 @@
 package com.example.std.model;
 import java.util.List;
-//import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -9,8 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 //import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,14 +31,14 @@ public class Course {
 	@GeneratedValue
 	private boolean delete_status;
 	
-	@OneToMany(mappedBy = "courses",cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "courses",cascade = CascadeType.ALL)
 	private List<Student> students;
-	public void addStudent(Student student) {
-		students.add(student);
-	}
-	public void removeStudent(Student student) {
-		students.remove(student);
-	}
+//	public void addStudent(Student student) {
+//		students.add(student);
+//	}
+//	public void removeStudent(Student student) {
+//		students.remove(student);
+//	}
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_id")
 	private Department department;
@@ -67,6 +66,12 @@ public class Course {
 	}
 	public void setDelete_status(boolean delete_status) {
 		this.delete_status = delete_status;
+	}
+	public List<Student> getStudents() {
+		return students;
+	}
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 	public Department getDepartment() {
 		return department;

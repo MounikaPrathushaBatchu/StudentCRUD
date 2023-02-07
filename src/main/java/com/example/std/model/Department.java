@@ -34,14 +34,12 @@ public class Department {
 	private List<Student> students;
 	@OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
 	private List<Course> courses;
-	
-	public void addCourse(Course course) {
-		courses.add(course);
-	}
-	public void removeCourse(Course course) {
-		courses.remove(course);
-	}
-	
+//	public void addCourse(Course course) {
+//		courses.add(course);
+//	}
+//	public void removeCourse(Course course) {
+//		courses.remove(course);
+//	}
 	public Long getId() {
 		return id;
 	}
@@ -66,12 +64,19 @@ public class Department {
 	public void setDelete_status(boolean delete_status) {
 		this.delete_status = delete_status;
 	}
+	public List<Student> getStudents() {
+		return students;
+	}
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
 	public List<Course> getCourses() {
 		return courses;
 	}
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
-	}	
+	}
+	
 }
 
 
