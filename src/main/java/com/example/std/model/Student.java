@@ -1,14 +1,12 @@
 package com.example.std.model;
 
-
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 
 import java.util.List;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.std.config.AesEncryptor;
 
@@ -21,14 +19,14 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.Table;
-//import lombok.AllArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Table(name = "student")
 public class Student {
 	@Id
@@ -38,8 +36,8 @@ public class Student {
 	private String name;
 	@Column(unique = true)
 	private String email_id;
-	//@GeneratedValue
 	@Convert(converter = AesEncryptor.class)
+	@GeneratedValue
 	private String password;
 	@GeneratedValue
 	public boolean active = true;
@@ -47,8 +45,9 @@ public class Student {
 	private boolean delete_status = false;
 	
 	@ManyToOne
-	@JoinColumn(name = "department_id")
+	@JoinColumn(name = "department_id")//,insertable=false, updatable=false)
 	private Department department;
+	//private int department_id;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
@@ -105,19 +104,17 @@ public class Student {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
-	public Student(Long id, String name, String email_id, String password, boolean active, boolean delete_status,
-			Department department, List<Course> courses) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email_id = email_id;
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		this.password = passwordEncoder.encode(password);
-		this.active = active;
-		this.delete_status = delete_status;
-		this.department = department;
-		this.courses = courses;
-	}
-	
-	
+	/*
+	 * public int getDepartment_id() { return department_id; } public void
+	 * setDepartment_id(int department_id) { this.department_id = department_id; }
+	 */
+	/*
+	 * public Student(Long id, String name, String email_id, String password,
+	 * boolean active, boolean delete_status, Department department,int
+	 * department_id, List<Course> courses) { this.id = id; this.name = name;
+	 * this.email_id = email_id; BCryptPasswordEncoder passwordEncoder = new
+	 * BCryptPasswordEncoder(); this.password = passwordEncoder.encode(password);
+	 * this.active = active; this.delete_status = delete_status; this.department =
+	 * department; this.department_id = department_id; this.courses = courses; }
+	 */
 }
