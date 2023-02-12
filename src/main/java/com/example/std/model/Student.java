@@ -40,7 +40,7 @@ public class Student {
 	@GeneratedValue
 	private String password;
 	@GeneratedValue
-	public boolean active = true;
+	private boolean active = true;
 	@GeneratedValue
 	private boolean delete_status = false;
 	

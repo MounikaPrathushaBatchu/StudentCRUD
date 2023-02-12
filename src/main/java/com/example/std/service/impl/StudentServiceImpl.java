@@ -41,22 +41,23 @@ public class StudentServiceImpl implements StudentService {
 		
 		Student student = opt.orElseThrow(()-> new StudentNotFoundException("Student Not Found"));
 		
-		/*Student student = null;
-		if(opt.isPresent()) {
-			student=opt.get();
-		}
-		else {
-			throw new StudentNotFoundException("Student Not Found");
-		}*/
+//		Student student = null;
+//		if(opt.isPresent()) {
+//			student=opt.get();
+//		}
+//		else {
+//			throw new StudentNotFoundException("Student Not Found");
+//		}
 		
 		return student;
 	}
 
-	@Override
-	public void deleteStudent(Long id) {
-		Student student = getOneStudent(id);
-		repo.delete(student);
-	}
+	
+//	  @Override 
+//	  public void deleteStudent(Long id) { 
+//		  Student student =getOneStudent(id); repo.delete(student); 
+//	}
+	 
 
 	@Override
 	public Student getOneStudent(String name) {

@@ -23,8 +23,8 @@ public class StudentRestController {
 	
 	@Autowired
 	private StudentService service;
-//	@Autowired
-//	private Student student;
+	//@Autowired
+	private Student student;
 	
 	@PostMapping("/save")
 	public ResponseEntity<String> saveStudent(@RequestBody Student student){
@@ -60,19 +60,21 @@ public class StudentRestController {
 	}
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteStudent(@PathVariable Long id){
-		service.deleteStudent(id);
+//		service.deleteStudent(id);
+		if(student.isDelete_status() == false) {
+			student.setDelete_status(true);
+		}
 		return new ResponseEntity<String>("Student '"+id+"' deleted",HttpStatus.OK);
 	}
-//	@GetMapping("/active")
-//	public ResponseEntity<List<Student>> getAllActiveStudents(){
-//		while(student != null) {
-//			if(student.active != false) {
-//				List<Student> list = service.getAllStudents();
-//				return new ResponseEntity<List<Student>>(list, HttpStatus.OK);
-//			}
-//			else {
-//				return null;
-//			}
-//		}
-//	}
+	@GetMapping("/active")
+	public ResponseEntity<List<Student>> getAllActiveStudents(){
+		List<Student> list = null;
+		while(student.getId() != null) {
+			if(student.isActive() == true) 
+				list = service.getAllStudents();
+			else 
+				return null;
+		}
+		return new ResponseEntity<List<Student>>(list, HttpStatus.OK);
+	}
 }
