@@ -10,14 +10,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+//import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Table(name = "department")
 public class Department {
 	@Id
@@ -26,10 +26,17 @@ public class Department {
 	@Column(unique = true)
 	private String name;
 	@GeneratedValue
-	public boolean active = true;
+	private boolean active = true;
 	@GeneratedValue
 	private boolean delete_status;
 	
+	
+public Department(String name, boolean active, boolean delete_status) {
+		super();
+		this.name = name;
+		this.active = active;
+		this.delete_status = delete_status;
+	}
 	@OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
 	private List<Student> students;
 	@OneToMany(mappedBy = "department",cascade = CascadeType.ALL)

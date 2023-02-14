@@ -15,18 +15,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+//import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Table(name = "student")
 public class Student {
 	@Id
@@ -56,6 +56,14 @@ public class Student {
 				inverseJoinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id"))
 	private List<Course> courses;
 	
+	public Student(String name, String email_id, String password, boolean active, boolean delete_status) {
+		super();
+		this.name = name;
+		this.email_id = email_id;
+		this.password = password;
+		this.active = active;
+		this.delete_status = delete_status;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -101,20 +109,11 @@ public class Student {
 	public List<Course> getCourses() {
 		return courses;
 	}
-	public void setCourses(List<Course> courses) {
+	public void setCourse(List<Course> courses) {
 		this.courses = courses;
 	}
 	/*
 	 * public int getDepartment_id() { return department_id; } public void
 	 * setDepartment_id(int department_id) { this.department_id = department_id; }
-	 */
-	/*
-	 * public Student(Long id, String name, String email_id, String password,
-	 * boolean active, boolean delete_status, Department department,int
-	 * department_id, List<Course> courses) { this.id = id; this.name = name;
-	 * this.email_id = email_id; BCryptPasswordEncoder passwordEncoder = new
-	 * BCryptPasswordEncoder(); this.password = passwordEncoder.encode(password);
-	 * this.active = active; this.delete_status = delete_status; this.department =
-	 * department; this.department_id = department_id; this.courses = courses; }
 	 */
 }
