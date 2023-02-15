@@ -2,13 +2,11 @@ package com.example.std.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
+//import jakarta.persistence.Convert;
 
 import java.util.List;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import com.example.std.config.AesEncryptor;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,14 +17,10 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-//import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
-//@AllArgsConstructor
 @Table(name = "student")
 public class Student {
 	@Id
@@ -36,7 +30,6 @@ public class Student {
 	private String name;
 	@Column(unique = true)
 	private String email_id;
-	@Convert(converter = AesEncryptor.class)
 	@GeneratedValue
 	private String password;
 	@GeneratedValue
@@ -56,6 +49,9 @@ public class Student {
 				inverseJoinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id"))
 	private List<Course> courses;
 	
+	public Student() {
+		super();
+	}
 	public Student(String name, String email_id, String password, boolean active, boolean delete_status) {
 		super();
 		this.name = name;

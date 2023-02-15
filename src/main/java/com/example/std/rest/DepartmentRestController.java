@@ -27,7 +27,7 @@ public class DepartmentRestController {
 	@Autowired
 	private DepartmentService service;
 //	@Autowired
-//	private Department department;
+	private Department department;
 	
 	@PostMapping("/save")
 	public ResponseEntity<String> saveDepartment(@RequestBody Department department){
@@ -58,17 +58,21 @@ public class DepartmentRestController {
 	}
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteDepartment(@PathVariable Long id){
-		service.deleteDepartment(id);
+//		service.deleteDepartment(id);
+		if(department.isDelete_status() == false) {
+			department.setDelete_status(true);
+		}
 		return new ResponseEntity<String>("Department '"+id+"' deleted",HttpStatus.OK);
 	}
-//	@GetMapping("/active")
-//	public ResponseEntity<List<Department>> getAllActiveDepartments(){
-//		if(department.active != false) {
-//			List<Department> list = service.getAllDepartments();
-//		return new ResponseEntity<List<Department>>(list, HttpStatus.OK);
-//		}
-//		else {
-//			return null;
-//		}
-//	}
+	@GetMapping("/active")
+	public ResponseEntity<List<Department>> getAllActiveDepartments(){
+		List<Department> list = null;
+		while(department.getId() != null) {
+		if(department.isActive() == true) 
+			list = service.getAllDepartments();
+		else 
+			return null;
+		}
+		return new ResponseEntity<List<Department>>(list, HttpStatus.OK);
+	}
 }

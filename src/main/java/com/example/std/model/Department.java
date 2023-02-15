@@ -12,11 +12,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 //import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+//import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
+//@NoArgsConstructor
 //@AllArgsConstructor
 @Table(name = "department")
 public class Department {
@@ -31,6 +31,9 @@ public class Department {
 	private boolean delete_status;
 	
 	
+public Department() {
+		super();
+	}
 public Department(String name, boolean active, boolean delete_status) {
 		super();
 		this.name = name;

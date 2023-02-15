@@ -24,7 +24,7 @@ public class CourseRestController {
 	@Autowired(required = true)
 	private CourseService service;
 //	@Autowired
-//	private Course course;
+	private Course course;
 	
 	@PostMapping("/save")
 	public ResponseEntity<String> saveCourse(@RequestBody Course course){
@@ -55,18 +55,22 @@ public class CourseRestController {
 	}
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteDepartment(@PathVariable Long id){
-		service.deleteCourse(id);
+//		service.deleteCourse(id);
+		if(course.isDelete_status() == false) {
+			course.setDelete_status(true);
+		}
 		return new ResponseEntity<String>("Course '"+id+"' deleted",HttpStatus.OK);
 	}
-//	@GetMapping("/active")
-//	public ResponseEntity<List<Course>> getAllActiveCourses(){
-//		if(course.active != false) {
-//			List<Course> list = service.getAllCourses();
-//		return new ResponseEntity<List<Course>>(list, HttpStatus.OK);
-//		}
-//		else {
-//			return null;
-//		}
-//	}
-
+	@GetMapping("/active")
+	public ResponseEntity<List<Course>> getAllActiveCourses(){
+		List<Course> list = null;
+		while(course.getId() != null) {
+			if(course.isActive() != false) 
+				list = service.getAllCourses();
+			else 
+				return null;
+		}
+		
+		return new ResponseEntity<List<Course>>(list, HttpStatus.OK);
+	}
 }
