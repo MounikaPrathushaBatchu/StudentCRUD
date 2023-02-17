@@ -94,7 +94,6 @@ public class StudentServiceImpl implements StudentService {
 		student.setDepartment(department);
 		return Mapper.studentToStudentResponseDao(student);
 	}
-
 	@Transactional
 	@Override
 	public StudentResponseDao deleteDepartmentFromStudent(Long studentId) {
