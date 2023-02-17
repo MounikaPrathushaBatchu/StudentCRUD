@@ -2,14 +2,16 @@ package dao.ResponseDao;
 
 import java.util.List;
 
+import lombok.Data;
+@Data
 public class CourseResponseDao {
 	
 	private Long id;
 	private String name;
 	private boolean active;
 	private boolean delete_status;
-	private String department_name;
-	private List<String> student_names;
+	private String departmentName;
+	private List<String> studentNames;
 	public Long getId() {
 		return id;
 	}
@@ -34,16 +36,17 @@ public class CourseResponseDao {
 	public void setDelete_status(boolean delete_status) {
 		this.delete_status = delete_status;
 	}
-	public String getDepartment_name() {
-		return department_name;
+	public String getDepartmentName() {
+		return departmentName;
 	}
-	public void setDepartment_name(String department_name) {
-		this.department_name = department_name;
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
-	public List<String> getStudent_names() {
-		return student_names;
+	public List<String> getStudentNames() {
+		return studentNames;
 	}
-	public void setStudent_names(List<String> student_names) {
-		this.student_names = student_names;
+	public void setStudentNames(List<String> studentNames) {
+		this.studentNames = studentNames;
 	}
+	
 }

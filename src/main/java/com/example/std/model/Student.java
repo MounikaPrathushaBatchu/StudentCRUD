@@ -40,7 +40,7 @@ public class Student {
 	@ManyToOne
 	@JoinColumn(name = "department_id")//,insertable=false, updatable=false)
 	private Department department;
-	//private int department_id;
+	//private Long department_id;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
@@ -48,6 +48,12 @@ public class Student {
 				joinColumns = @JoinColumn(name = "student_id",referencedColumnName = "id"),
 				inverseJoinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id"))
 	private List<Course> courses;
+	public void addCourse(Course course) {
+		courses.add(course);
+	}
+	public void removeCourse(Course course) {
+		courses.remove(course);
+	}
 	
 	public Student() {
 		super();

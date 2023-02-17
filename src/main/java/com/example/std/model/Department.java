@@ -10,14 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-//import lombok.AllArgsConstructor;
 import lombok.Data;
-//import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-//@NoArgsConstructor
-//@AllArgsConstructor
 @Table(name = "department")
 public class Department {
 	@Id
@@ -42,14 +38,20 @@ public Department(String name, boolean active, boolean delete_status) {
 	}
 	@OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
 	private List<Student> students;
+	public void addStudent(Student student) {
+		students.add(student);
+	}
+	public void removeStudent(Student student) {
+		students.remove(student);
+	}
 	@OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
 	private List<Course> courses;
-//	public void addCourse(Course course) {
-//		courses.add(course);
-//	}
-//	public void removeCourse(Course course) {
-//		courses.remove(course);
-//	}
+	public void addCourse(Course course) {
+		courses.add(course);
+	}
+	public void removeCourse(Course course) {
+		courses.remove(course);
+	}
 	public Long getId() {
 		return id;
 	}
@@ -86,7 +88,6 @@ public Department(String name, boolean active, boolean delete_status) {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
-	
 }
 
 

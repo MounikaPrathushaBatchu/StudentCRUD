@@ -16,16 +16,15 @@ import dao.ResponseDao.StudentResponseDao;
 public class Mapper {
 	@Autowired
 	private static CourseResponseDao courseResponseDao;
-	
 	public static CourseResponseDao courseToCourseResponseDao(Course course) {
 		courseResponseDao.setId(course.getId());
-		courseResponseDao.setDepartment_name(course.getDepartment().getName());
+		courseResponseDao.setDepartmentName(course.getDepartment().getName());
 		List<String> names = new ArrayList<>();
 		List<Student> students = new ArrayList<>();
 		for(Student student:students) {
 			names.add(student.getName());
 		}
-		courseResponseDao.setStudent_names(names);
+		courseResponseDao.setStudentNames(names);
 		return courseResponseDao;
 	}
 	public static List<CourseResponseDao> coursesToCourseResponseDaos(List<Course> courses){
@@ -45,10 +44,10 @@ public class Mapper {
 		for(Course course:courses) {
 			names.add(course.getName());
 		}
-		studentResponseDao.setCourses(names);
+		studentResponseDao.setCourseNames(names);
 		return studentResponseDao;
 	}
-	public static List<StudentResponseDao> studentToStudentResponseDao(List<Student> students){
+	public static List<StudentResponseDao> studentsToStudentResponseDao(List<Student> students){
 		List<StudentResponseDao> studentResponseDaos = new ArrayList<>();
 		for(Student student:students) {
 			studentResponseDaos.add(studentToStudentResponseDao(student));
@@ -67,7 +66,7 @@ public class Mapper {
 		}
 		return departmentResponseDao;
 	}
-	public static List<DepartmentResponseDao> departmentToDepartmentResponseDaos(List<Department> departments){
+	public static List<DepartmentResponseDao> departmentsToDepartmentResponseDaos(List<Department> departments){
 		List<DepartmentResponseDao> departmentResponseDaos = new ArrayList<>();
 		for(Department department:departments) {
 			departmentResponseDaos.add(departmentToDepartmentResponseDao(department));

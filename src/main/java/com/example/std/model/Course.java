@@ -11,14 +11,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-//import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
-//@AllArgsConstructor
 @Table(name = "course")
 public class Course {
 	@Id
@@ -33,22 +29,26 @@ public class Course {
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Student> students;
-//	public void addStudent(Student student) {
-//		students.add(student);
-//	}
-//	public void removeStudent(Student student) {
-//		students.remove(student);
-//	}
+	public void addStudent(Student student) {
+		students.add(student);
+	}
+	public void removeStudent(Student student) {
+		students.remove(student);
+	}
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "department_id")
 	private Department department;
 	
-	public Course(String name, boolean active, boolean delete_status) {
-	super();
+	public Course() {
+		super();
+	}
+	public Course(String name, boolean active, boolean delete_status, List<Student> students, Department department) {
 	this.name = name;
 	this.active = active;
 	this.delete_status = delete_status;
-}
+	this.students = students;
+	this.department = department;
+	}
 	public Long getId() {
 		return id;
 	}

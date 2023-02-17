@@ -1,9 +1,7 @@
 package dao.RequestDao;
 
 import java.util.List;
-
 import com.example.std.model.Course;
-
 import lombok.Data;
 
 @Data
@@ -12,8 +10,15 @@ public class StudentRequestDao {
 	private String name;
 	private String email_id;
 	private String Password;
-	private int department_id;
+	private Long department_id;
 	private List<Course> courses;
+	
+	public List<Course> getCourses() {
+		return courses;
+	}
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
 	public String getName() {
 		return name;
 	}
@@ -32,17 +37,17 @@ public class StudentRequestDao {
 	public void setPassword(String password) {
 		Password = password;
 	}
-	public int getDepartment_id() {
+	public Long getDepartment_id() {
 		return department_id;
 	}
-	public void setDepartment_id(int department_id) {
+	public void setDepartment_id(Long department_id) {
 		this.department_id = department_id;
 	}
-	public List<Course> getCourses() {
-		return courses;
-	}
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
-	}
+//	public List<Course> getCourses() {
+//		return courses;
+//	}
+//	public void setCourses(List<Course> courses) {
+//		this.courses = courses;
+//	}
 
 }
