@@ -24,7 +24,7 @@ public class Department {
 	@GeneratedValue
 	private boolean active = true;
 	@GeneratedValue
-	private boolean delete_status;
+	private boolean delete_status = false;
 	
 	
 public Department() {
@@ -89,5 +89,3 @@ public Department(String name, boolean active, boolean delete_status) {
 		this.courses = courses;
 	}
 }
-
-

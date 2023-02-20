@@ -90,7 +90,7 @@ public class CourseServiceImpl implements CourseService {
 	public CourseResponseDao editCourse(Long courseId, CourseRequestDao courseRequestDao) {
 		Course courseToEdit = getCourse(courseId);
 		courseToEdit.setName(courseRequestDao.getName());
-		if(!(courseRequestDao.getStudent_id() == null)) {
+		if(!(courseRequestDao.getStudent_id() != null)) {
 			List<Student> students = new ArrayList<>();
 //			for(Long studentId:courseRequestDao.getStudent_id()) {
 			while(courseRequestDao.getStudent_id() != null) {

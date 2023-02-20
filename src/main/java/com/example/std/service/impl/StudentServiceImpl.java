@@ -35,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
 	public StudentResponseDao addStudent(StudentRequestDao studentRequestDao) {
 		Student student = new Student();
 		student.setName(studentRequestDao.getName());
-		if(studentRequestDao.getDepartment_id() == null) {
+		if(studentRequestDao.getDepartment_id() != null) {
 			throw new IllegalArgumentException("Student need Department_id");
 		}
 		Department department = departmentService.getDepartment(studentRequestDao.getDepartment_id());

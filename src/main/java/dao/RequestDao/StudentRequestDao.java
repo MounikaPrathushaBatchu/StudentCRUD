@@ -43,11 +43,4 @@ public class StudentRequestDao {
 	public void setDepartment_id(Long department_id) {
 		this.department_id = department_id;
 	}
-//	public List<Course> getCourses() {
-//		return courses;
-//	}
-//	public void setCourses(List<Course> courses) {
-//		this.courses = courses;
-//	}
-
 }

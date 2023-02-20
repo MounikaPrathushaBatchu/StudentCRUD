@@ -25,7 +25,7 @@ public class Course {
 	@GeneratedValue
 	private boolean active = true;
 	@GeneratedValue
-	private boolean delete_status;
+	private boolean delete_status = false;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Student> students;
